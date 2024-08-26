@@ -1,0 +1,19 @@
+<button (click)="taskStatus('')">All Tasks</button>
+<button (click)="taskStatus('completed')">Completed Task</button>
+<button (click)="taskStatus('inprogress')">In Progress Task</button>
+<button (click)="taskStatus('incompleted')">Incompleted Task</button>
+
+@for(task of (tasksList$ | async | filteredTasks: selectedTaskStatus); track
+task.id){
+<div
+  class="taskCard"
+  [appPastDueDate]="{ date: task.dueDate, status: task.status }"
+  appHoverEffect
+>
+  <h3>{{ task.title }}</h3>
+  <p>{{ task.description }}</p>
+  <p>{{ task.status }}</p>
+  <p [style]="setTaskPriorityColor(task.priority)">{{ task.priority }}</p>
+  <p>{{ task.dueDate | date }}</p>
+</div>
+}
